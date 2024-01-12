@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.milotnt.mapper.ClassOrderMapper">
+
+    <!--
+        查询所有报名表信息
+        @return List of ClassOrder objects
+    -->
+    <select id="findAll" resultType="classOrder">
+        SELECT *
+        FROM class_order
+    </select>
+
+    <!--
+        添加报名信息
+        @param classOrder ClassOrder对象
+        @return Boolean
+    -->
+    <insert id="insertClassOrder" parameterType="classOrder">
+        INSERT INTO class_order(class_order_id, class_id, class_name, coach, member_name, member_account, class_begin)
+        VALUES (#{classOrderId}, #{classId}, #{className}, #{coach}, #{memberName}, #{memberAccount}, #{classBegin})
+    </insert>
+
+    <!--
+        根据会员账号查询个人报名课表
+        @param memberAccount 会员账号
+        @return List of ClassOrder objects
+    -->
+    <select id="selectClassOrderByMemberAccount" parameterType="java.lang.Integer" resultType="classOrder">
+        SELECT *
+        FROM class_order
+        WHERE member_account = #{memberAccount}
+    </select>
+
+    <!--
+        删除已预约的课程
+        @param classOrderId 报名表ID
+        @return Boolean
+    -->
+    <delete id="deleteByClassOrderId" parameterType="java.lang.Integer">
+        DELETE
+        FROM class_order
+        WHERE class_order_id = #{classOrderId}
+    </delete>
+
+    <!--
+        查询会员是否报名该课程
+        @param classId 课程ID
+        @param memberAccount 会员账号
+        @return ClassOrder对象
+    -->
+    <select id="selectMemberByClassIdAndMemberAccount" parameterType="java.lang.Integer" resultType="classOrder">
+        SELECT *
+        FROM class_order
+        WHERE class_id = #{classId}
+          AND member_account = #{memberAccount}
+    </select>
+
+    <!--
+        根据课程 id 查询所有报名的会员
+        @param classId 课程ID
+        @return List of ClassOrder objects
+    -->
+    <select id="selectMemberOrderList" parameterType="java.lang.Integer" resultType="classOrder">
+        SELECT *
+        FROM class_order
+        WHERE class_id = #{classId}
+    </select>
+
+</mapper>

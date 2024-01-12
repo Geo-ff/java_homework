@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.milotnt.mapper.EquipmentMapper">
+
+    <!--
+        查询所有器械
+        @return List of Equipment objects
+    -->
+    <select id="findAll" resultType="equipment">
+        SELECT *
+        FROM equipment
+    </select>
+
+    <!--
+        根据 ID 删除器械
+        @param equipmentId 器械ID
+        @return Boolean
+    -->
+    <delete id="deleteByEquipmentId" parameterType="java.lang.Integer">
+        DELETE
+        FROM equipment
+        WHERE equipment_id = #{equipmentId}
+    </delete>
+
+    <!--
+        添加器材
+        @param equipment Equipment对象
+        @return Boolean
+    -->
+    <insert id="insertEquipment" parameterType="equipment">
+        INSERT INTO equipment (equipment_id, equipment_name, equipment_location, equipment_status, equipment_message)
+        VALUES (#{equipmentId}, #{equipmentName}, #{equipmentLocation}, #{equipmentStatus}, #{equipmentMessage})
+    </insert>
+
+    <!--
+        根据 ID 修改器械信息
+        @param equipment Equipment对象
+        @return Boolean
+    -->
+    <update id="updateEquipmentByEquipmentId" parameterType="equipment">
+        UPDATE equipment
+        SET equipment_id       = #{equipmentId},
+            equipment_name     = #{equipmentName},
+            equipment_location = #{equipmentLocation},
+            equipment_status   = #{equipmentStatus},
+            equipment_message  = #{equipmentMessage}
+        WHERE equipment_id = #{equipmentId}
+    </update>
+
+    <!--
+        根据 ID 查询器械
+        @param equipmentId 器械ID
+        @return Equipment对象
+    -->
+    <select id="selectByEquipmentId" parameterType="java.lang.Integer" resultType="equipment">
+        SELECT *
+        FROM equipment
+        WHERE equipment_id = #{equipmentId}
+    </select>
+
+    <!--
+        查询器械总数
+        @return Integer
+    -->
+    <select id="selectTotalCount" resultType="java.lang.Integer">
+        SELECT count(*)
+        FROM equipment
+    </select>
+
+</mapper>

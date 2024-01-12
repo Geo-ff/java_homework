@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.milotnt.mapper.AdminMapper">
+
+    <!--
+        查询管理员账号和密码是否匹配
+        @param adminAccount 管理员账号
+        @param adminPassword 管理员密码
+        @return Admin对象
+    -->
+    <select id="selectByAccountAndPassword" resultType="admin">
+        SELECT *
+        FROM admin
+        WHERE admin_account = #{adminAccount}
+          AND admin_password = #{adminPassword}
+    </select>
+
+</mapper>

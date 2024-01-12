@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.milotnt.mapper.ClassTableMapper">
+
+    <!--
+        查询所有课程
+        @return List of ClassTable objects
+    -->
+    <select id="findAll" resultType="classTable">
+        SELECT *
+        FROM class_table
+    </select>
+
+    <!--
+        根据 id 删除课程
+        @param classId 课程ID
+        @return Boolean
+    -->
+    <delete id="deleteClassByClassId" parameterType="java.lang.Integer">
+        DELETE
+        FROM class_table
+        WHERE class_id = #{classId}
+    </delete>
+
+    <!--
+        添加课程
+        @param classTable ClassTable对象
+        @return Boolean
+    -->
+    <insert id="insertClass" parameterType="classTable">
+        INSERT INTO class_table(class_id, class_name, class_begin, class_time, coach)
+        VALUES (#{classId}, #{className}, #{classBegin}, #{classTime}, #{coach})
+    </insert>
+
+    <!--
+        根据 id 查询课表
+        @param classId 课程ID
+        @return ClassTable对象
+    -->
+    <select id="selectByClassId" parameterType="java.lang.Integer" resultType="classTable">
+        SELECT *
+        FROM class_table
+        WHERE class_id = #{classId}
+    </select>
+
+    <!--
+        根据 id 删除已预约的课程
+        @param classId 课程ID
+        @return Boolean
+    -->
+    <delete id="deleteOrderByClassId" parameterType="java.lang.Integer">
+        DELETE
+        FROM class_order
+        WHERE class_id = #{classId}
+    </delete>
+
+</mapper>
